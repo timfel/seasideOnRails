@@ -1,0 +1,57 @@
+#!/bin/bash
+
+function usage {
+	echo "create [model|component] [classname]"
+}
+
+if [ $# -ne 2 ]; then 
+   	usage
+	exit 1
+fi
+
+typ=$1
+name=$2
+
+function fileInCode {
+	name=$1
+	typ=$2
+	echo "
+ObjectMemory snapshot: 'seaside.im'" >> "../${typ}s/$name.st"
+}
+
+function component {
+	name=$1
+	echo "
+Seaside.WAComponent subclass: $name [
+	$name class >> canBeRoot [ ^ true ]
+	
+	initialize [ super initialize ]
+
+	renderContentOn: html [
+	]
+]" > "../components/$name.st"
+}
+
+function model {
+	name=$1
+	echo "
+Object subclass: $name [
+	initialize [ super initialize ]
+]" > "../models/$name.st"
+}
+
+cd `echo $0 | sed 's#/[A-Za-z0-9]*$##'`
+case "$typ" in
+   "component")
+   	component $name
+	;;
+   "model")
+   	model $name
+	;;
+   *)
+   	usage
+	exit 1
+   	;;
+esac
+fileInCode $name $typ
+

@@ -1,0 +1,20 @@
+#!/bin/bash
+# File in all *.st files of the project
+
+FOLDERS="
+models
+components
+"
+
+cd `echo $0 | sed 's#/[A-Za-z0-9]*$##'`
+cd ..
+for i in $FOLDERS; do
+   	cd "$i"
+	for j in *.st; do
+		echo "Adding ../$i/$j"
+		cd ..
+		gst -I seaside.im -f "$i"/"$j"
+		cd $i
+	done
+	cd ..
+done

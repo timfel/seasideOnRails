@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#cd `echo $0 | sed 's#/[A-Za-z0-9]*$##'`
+#echo "Updating ..."
+#exec ./updateAll
+cd `echo $0 | sed 's#/[A-Za-z0-9]*$##'`
+echo "Running WAKom ..."
+gst-load -I ../seaside.im --start Seaside
+

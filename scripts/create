@@ -29,7 +29,7 @@ Seaside.WAFileLibrary subclass: $name [
 	]
 ]
 
-MyFileLibrary addAllFilesIn: '`pwd`/../static/'.
+$name addAllFilesIn: '`pwd`/../static/'.
 " > "../support/$name.st"
 }
 

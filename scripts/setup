@@ -1,4 +1,8 @@
 #!/bin/bash
 
 cd `echo $0 | sed 's#/[A-Za-z0-9]*$##'`
+mkdir ../models
+mkdir ../components
+mkdir ../config
+mkdir ../support
 gst-load -iI ../seaside.im Seaside Seaside-Development Seaside-Examples

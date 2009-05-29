@@ -34,21 +34,24 @@ Seaside.WAComponent subclass: $name [
 
 function app {
 	name=$1
-	echo"
+	echo "
 Seaside.WAComponent subclass: $name [
 	$name class >> canBeRoot [ ^ true ]
 	
 	$name class>>initialize [
         	| application |
 		super initialize.
-        	application := self registerAsApplication: '$name'.
+        	application := self registerAsApplication: self name asString.
 	]
 
 	initialize [ super initialize ]
 
 	renderContentOn: html [
 	]
-]" > "../components/$name.st"
+]
+
+$name initialize.
+" > "../components/${name}.st"
 echo "RootComponent: $name" >> ../config/config
 }
 
@@ -58,11 +61,10 @@ function session {
 Seaside.WASession subclass: $name [
 	initialize [ super initialize ]
 ]" > "../support/$name.st"
-	root=`grep -n1 RootComponent: | sed 's/RootComponent: //'`
+	root=`grep RootComponent ../config/config | sed 's/RootComponent: //'`
 	saveLine=`grep "registerAsApplication" ../components/${root}.st`
-	newLine="$saveLine
-		application preferenceAt: #sessionClass put: $name."
-	eval "/bin/sed -i 's/$saveLine/$newLine/' ../components/${root}.st"
+	newLine="application preferenceAt: #sessionClass put: $name."
+	eval "sed -i 's/$saveLine/$saveLine\n\t\t$newLine/' ../components/${root}.st"
 }
 
 function model {

@@ -5,4 +5,5 @@ mkdir ../models
 mkdir ../components
 mkdir ../config
 mkdir ../support
+mkdir ../static
 gst-load -iI ../seaside.im Seaside Seaside-Development Seaside-Examples

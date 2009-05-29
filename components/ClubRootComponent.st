@@ -5,7 +5,7 @@ Seaside.WAComponent subclass: ClubRootComponent [
 	ClubRootComponent class >> canBeRoot [ ^ true ]
 	ClubRootComponent class >> initialize [
         	| application |
-        	application := self registerAsApplication: self asString.
+        	application := self registerAsApplication: self name asString.
         	application preferenceAt: #sessionClass put: ClubSession.
 	]
 
@@ -45,5 +45,6 @@ Seaside.WAComponent subclass: ClubRootComponent [
 	]
 ]
 
+ClubRootComponent initialize.
 ObjectMemory snapshot: 'seaside.im'
 

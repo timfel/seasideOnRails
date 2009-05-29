@@ -1,9 +1,15 @@
 #!/bin/bash
+# server (save)
 
 #cd `echo $0 | sed 's#/[A-Za-z0-9]*$##'`
 #echo "Updating ..."
 #exec ./updateAll
 cd `echo $0 | sed 's#/[A-Za-z0-9]*$##'`
 echo "Running WAKom ..."
+if [ $# -eq 1 ]; then
+   if [ "$1" == "y" ]; then
+      gst-load -iI ../seaside.im --start Seaside
+   fi
+fi
 gst-load -I ../seaside.im --start Seaside
 

@@ -3,6 +3,12 @@ Seaside.WAComponent subclass: ClubRootComponent [
 	| sideBarComponent menuComponent newsComponent |
 
 	ClubRootComponent class >> canBeRoot [ ^ true ]
+	ClubRootComponent class >> initialize [
+        	| application |
+        	application := self registerAsApplication: self asString.
+        	application preferenceAt: #sessionClass put: ClubSession.
+	]
+
 	
 	initialize [ 
 		super initialize.
@@ -39,6 +45,5 @@ Seaside.WAComponent subclass: ClubRootComponent [
 	]
 ]
 
-ClubRootComponent registerAsApplication: 'ClubRootComponent'.
 ObjectMemory snapshot: 'seaside.im'
 

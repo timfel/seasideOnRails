@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd `echo $0 | sed 's#/[A-Za-z0-9]*$##'`
-gst-load -iI seaside.im Seaside Seaside-Development Seaside-Examples
+gst-load -iI ../seaside.im Seaside Seaside-Development Seaside-Examples

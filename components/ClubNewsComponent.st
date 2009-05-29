@@ -8,7 +8,6 @@ Seaside.WAComponent subclass: ClubNewsComponent [
 	renderContentOn: html [
 		self session database events do: [:each |
 		    html text: each title]
-		]
 	]
 ]
 

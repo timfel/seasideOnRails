@@ -1,9 +1,14 @@
 Object subclass: ClubDatabase [
-	| Events |
+
+	Events := OrderedCollection new.
 	
 	initialize [
 		super initialize.
 		Events := OrderedCollection new.
+	]
+
+	events [
+		^ Events
 	]
 
 	addEvent: aClubEvent [

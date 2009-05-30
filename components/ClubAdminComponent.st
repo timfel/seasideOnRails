@@ -13,14 +13,19 @@ Seaside.WAComponent subclass: ClubAdminComponent [
 	initializeMenuComponent [
 		menuComponent separator: #break.
 		menuComponent addEntry: 'Create New Event' with: [self createNewEvent].
-		menuComponent addEntry: 'Link2' with: [].
+		menuComponent addEntry: 'Create News' with: [self createNewsItem].
 		menuComponent addEntry: 'Link3' with: [].
 	]
 
 	createNewEvent [
 		| event |
-		event := self call: eventEditor.
+		event := self call: ClubEvent new asComponent addValidatedForm.
 		event ifNotNil: [self session database addEvent: event].
+	]
+
+	createNewsItem [
+		| news |
+		news := self call: ClubNewsitem new asComponent addValidatedForm.
 	]
 
 	children [ ^ Array with: eventEditor with: menuComponent ]

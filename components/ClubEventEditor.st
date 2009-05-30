@@ -4,15 +4,16 @@ Seaside.WAComponent subclass: ClubEventEditor [
 	
 	initialize [ 
 		super initialize.
-		event := ClubEvent new.
+		event := nil.
 	]
 
 	event [ ^ event ]
 	event: anEvent [ ^ event := anEvent ]
 
 	renderContentOn: html [
+		event ifNil: [ event := ClubEvent new ].
 		html div
-		    class: 'generic-lightbox';
+		    class: 'mainContent';
 		    with: [
 		        html heading: 'Editing task'.
 		            html form: [

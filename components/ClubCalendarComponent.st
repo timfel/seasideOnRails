@@ -5,6 +5,7 @@ Seaside.WAComponent subclass: ClubCalendarComponent [
 	initialize [ super initialize ]
 
 	renderContentOn: html [
+		html text: 'Calendar'
 	]
 ]
 

@@ -8,13 +8,14 @@ Seaside.WAComponent subclass: ClubMenuComponent [
 	]
 
 	renderContentOn: html [
-		entries do: [:each |
-		    html div
-		        class: 'menu-item';
-		        with: [html anchor
-			    callback: each value;
-		            with: each key]
-		] separatedBy: [html space].
+		html div
+		    class: 'menuItems';
+		    with: [
+		        entries do: [:each |
+		            html anchor
+			        callback: each value;
+		                with: each key]
+		        separatedBy: [html space]]
 	]
 
 	addEntry: aString with: aBlock [

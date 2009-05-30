@@ -7,6 +7,7 @@ Seaside.WAComponent subclass: ClubRootComponent [
         	| application |
         	application := self registerAsApplication: self name asString.
         	application preferenceAt: #sessionClass put: ClubSession.
+		application preferenceAt: #libraries put: (Array with: ClubFileLibrary with: Seaside.WAStandardFiles).
 	]
 
 	
@@ -34,14 +35,23 @@ Seaside.WAComponent subclass: ClubRootComponent [
 
 	renderContentOn: html [
 		html div
-		    class: 'menu';
-		    with: menuComponent.
-		html div
-		    class: 'sideBar';
-		    with: sideBarComponent.
-		html div
-		    class: 'main';
-		    with: newsComponent.
+		    class: 'mainWrapper';
+		    with: [
+		        html div
+		            class: 'mainHead';
+		            with: [html text: 'BANNER'].
+		        html div
+		            class: 'mainNav';
+		            with: menuComponent.
+		        html div
+		            class: 'mainContent';
+			    with: [
+		                html div
+				    class: 'sideBar';
+		                    with: sideBarComponent.
+		                html div
+		                    class: 'main';
+		                    with: newsComponent.]]
 	]
 ]
 

@@ -1,6 +1,7 @@
 
 Seaside.WAComponent subclass: ClubRootComponent [
-	| sideBarComponent newsComponent adminComponent menuComponent |
+	| sideBarComponent menuComponent currentComponent
+	  newsComponent loginComponent |
 
 	ClubRootComponent class >> canBeRoot [ ^ true ]
 	ClubRootComponent class >> initialize [
@@ -10,28 +11,42 @@ Seaside.WAComponent subclass: ClubRootComponent [
 		application preferenceAt: #libraries put: (Array with: ClubFileLibrary with: Seaside.WAStandardFiles).
 	]
 
-	initialize [ 
+	initialize [
 		super initialize.
 	        sideBarComponent := ClubSideBarComponent new.
-		newsComponent := ClubNewsComponent new.	
+		currentComponent := newsComponent := ClubNewsComponent new.	
+		loginComponent := ClubAdminComponent new.	
 		menuComponent := ClubMenuComponent new.
 
 		self initializeMenuComponent.
 	]
 
 	initializeMenuComponent [
-		menuComponent addEntry: 'Link1' with: [].
+		menuComponent addEntry: 'News' with: [currentComponent := newsComponent].
 		menuComponent addEntry: 'Link2' with: [].
-		menuComponent addEntry: 'Link3' with: [].
+		menuComponent addEntry: 'Intern' with: [currentComponent := loginComponent].
 	]
 
 	children [
 		^ Array 
 		    with: sideBarComponent
 		    with: newsComponent
+		    with: menuComponent
+		    with: loginComponent
+	]
+
+	renderLogonInformationOn: html [
+		self session isLoggedIn
+		    ifTrue: [
+		        html text: 'Logged in as ', self session username.
+			html anchor
+			    callback: [self logout];
+			    with: [html text: '(Logout)']]
+		    ifFalse: [html text: 'Not logged in']
 	]
 
 	renderContentOn: html [
+		self renderLogonInformationOn: html.
 		html div
 		    class: 'mainWrapper';
 		    with: [
@@ -43,7 +58,7 @@ Seaside.WAComponent subclass: ClubRootComponent [
 			    with: menuComponent.
 		        html div
 		            class: 'main';
-		            with: newsComponent.
+		            with: currentComponent.
 		        html div
 			    class: 'sideBar';
 		            with: sideBarComponent.]

@@ -1,11 +1,14 @@
 
 Seaside.WAComponent subclass: ClubMenuComponent [
-	| entries |
+	| entries separator |
 	
 	initialize [ 
 		super initialize.
 		entries := OrderedCollection new.
+		separator := #space.
 	]
+
+	separator: aHtmlMethod [ ^ separator := aHtmlMethod ]
 
 	renderContentOn: html [
 		html div
@@ -15,7 +18,7 @@ Seaside.WAComponent subclass: ClubMenuComponent [
 		            html anchor
 			        callback: each value;
 		                with: each key]
-		        separatedBy: [html space]]
+		        separatedBy: [html perform: separator]]
 	]
 
 	addEntry: aString with: aBlock [

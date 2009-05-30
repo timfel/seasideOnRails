@@ -31,6 +31,10 @@ Seaside.WAFileLibrary subclass: $name [
 
 $name addAllFilesIn: '`pwd`/../static/'.
 " > "../support/$name.st"
+	root=`grep RootComponent ../config/config | sed 's/RootComponent: //'`
+	saveLine=`grep "registerAsApplication" ../components/${root}.st`
+	newLine="application preferenceAt: #libraries put: (Array with: $name with: Seaside.WAStandardFiles)."
+	eval "sed -i 's/$saveLine/$saveLine\n\t\t$newLine/' ../components/${root}.st"
 }
 
 function component {

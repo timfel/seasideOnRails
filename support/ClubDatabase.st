@@ -4,7 +4,6 @@ Object subclass: ClubDatabase [
 	
 	initialize [
 		super initialize.
-		Events := OrderedCollection new.
 	]
 
 	events [
@@ -13,6 +12,10 @@ Object subclass: ClubDatabase [
 
 	addEvent: aClubEvent [
 		Events add: aClubEvent
+	]
+
+	reset [
+		Events := OrderedCollection new.
 	]
 ]
 

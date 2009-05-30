@@ -10,7 +10,6 @@ Seaside.WAComponent subclass: ClubRootComponent [
 		application preferenceAt: #libraries put: (Array with: ClubFileLibrary with: Seaside.WAStandardFiles).
 	]
 
-	
 	initialize [ 
 		super initialize.
 	        sideBarComponent := ClubSideBarComponent new.
@@ -20,8 +19,10 @@ Seaside.WAComponent subclass: ClubRootComponent [
 		self initializeMenuComponent.
 	]
 
+	newsComponent [ ^ newsComponent ]
+	
 	initializeMenuComponent [
-		menuComponent addEntry: 'Link1' with: [].
+		menuComponent addEntry: 'New Event' with: [self newsComponent call: self newsComponent eventEditor].
 		menuComponent addEntry: 'Link2' with: [].
 		menuComponent addEntry: 'Link3' with: [].
 	]

@@ -24,8 +24,12 @@ Seaside.WAFileLibrary subclass: ClubFileLibrary [
    border-width: 4px;
 }
 
-.mainContent {
-   background-color: #eeeeee;
+.subNav {
+   width: 140px;
+   float: right;
+   font-color: #dedede;
+   font-size: small;
+   border: 1px dashed silver;
 }
 
 .calendar {
@@ -47,7 +51,7 @@ Seaside.WAFileLibrary subclass: ClubFileLibrary [
 .main {
    border-style: solid;
    border-width: 1px;
-   width: 635px;
+   width: 638px;
    float: right;
 }'
 	]

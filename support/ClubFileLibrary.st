@@ -52,6 +52,13 @@ Seaside.WAFileLibrary subclass: ClubFileLibrary [
    border-width: 1px;
    width: 638px;
    float: right;
+}
+
+.listItem {
+   border-style: double;
+   border-width: 1px;
+   background-color: #dddddd;
+   font-size: small;
 }'
 	]
 	

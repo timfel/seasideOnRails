@@ -13,7 +13,8 @@ Seaside.WAComponent subclass: ClubUserComponent [
 		with: [html text: user username].
 	    html div 
 	        class: 'userSemestre';
-		with: [html text: DateTime now year 
+		with: [html text: 'Semester: '.
+		       html text: DateTime now year 
 			- user joinYear * 2 + 1 
 			- (1 - (DateTime now month / 12) 
 			      asFloat roundTo: 1) asInteger].
@@ -26,7 +27,7 @@ Seaside.WAComponent subclass: ClubUserComponent [
 			html text: (key,': ',value)]].
 	    html div 
 	        class: 'userDescription';
-		with: [html html: user description].
+		with: [html html: 'Beschreibung: ',user description].
 	]
 ]
 

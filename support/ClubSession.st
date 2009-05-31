@@ -12,6 +12,7 @@ Seaside.WASession subclass: ClubSession [
 	isLoggedIn [ ^ user isNil not ]
 	login: aClubUser [ user := aClubUser ]
 	username [ ^ user username ]
+	user [ ^ user ]
 ]
 
 ObjectMemory snapshot: 'seaside.im'

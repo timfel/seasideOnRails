@@ -10,6 +10,14 @@ Object subclass: ClubDatabase [
 		^ Events
 	]
 
+	news [
+		| news |
+	       	news := OrderedCollection new.	
+		Events do: [:event | 
+		    news addAll: event newsItems].
+		^ news
+	]
+
 	addEvent: aClubEvent [
 		Events add: aClubEvent
 	]

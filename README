@@ -1,0 +1,18 @@
+This is a little project for some very specific content management
+in our club at uni. I used this to learn about development process 
+in Gnu Smalltalk with Seaside, after having used Seaside in Squeak 
+for a couple of years now.
+
+I loosely modelled the folder structure after Rails, but it's not
+actually thought out, I just made it all up as I went along. Same
+goes for the scripts, they aren't clean, they just do what they'd
+been written to do at the time, with a very specific environment.
+
+I just keep these here in case Seaside and Gnu Smalltalk turn out
+to be the next best thing after sliced bread. Then I might extend
+the scripts to work more reliably.
+
+Anyway, for trying, just run scripts/setup to create your project
+and use scripts/create to get some classes scaffolded. After that
+use scripts/updateAll and scripts/server to file in code and exec
+the Swazoo server on port :8080

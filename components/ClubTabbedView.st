@@ -1,16 +1,20 @@
 
 Seaside.WAComponent subclass: ClubTabbedView [
 	"Container-Component to create tabbed views"
-	| components currentComponent tabType |
+	| components currentComponent tabType myChildren |
 
 	initialize [ 
 	    super initialize.
 	    components := OrderedCollection new.
+	    myChildren := OrderedCollection new.
 	    self setTopTabbed.
 	]
 
+	children [ ^ myChildren asArray ]
+
 	components [ ^ components ]
 	addComponent: aComponent with: aString [
+	    myChildren add: aComponent.
 	    ^ components add: (aString -> [currentComponent := aComponent])
    	]
 

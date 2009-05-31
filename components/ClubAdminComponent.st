@@ -1,20 +1,17 @@
 
-Seaside.WAComponent subclass: ClubAdminComponent [
-	| eventEditor menuComponent |
+ClubTabbedView subclass: ClubAdminComponent [
 	
-	initialize [ 
+	initialize [
 		super initialize.
-		eventEditor := ClubEventEditor new.
-	        menuComponent := ClubMenuComponent new.
-
-		self initializeMenuComponent.
-	]
-
-	initializeMenuComponent [
-		menuComponent separator: #break.
-		menuComponent addEntry: 'Create New Event' with: [self createNewEvent].
-		menuComponent addEntry: 'Create News' with: [self createNewsItem].
-		menuComponent addEntry: 'Link3' with: [].
+	        self
+		    setSideTabbed;
+		    addComponent: (ClubUserComponent new)
+				   "user: self session user;
+				   yourself)"
+		    with: 'Your Userpage';
+		    addCallback: [self createNewEvent] with: 'Create New Event';
+		    addCallback: [self createNewsItem] with: 'Create News'.
+		components first value value. "Set Userpage View"
 	]
 
 	createNewEvent [
@@ -26,17 +23,6 @@ Seaside.WAComponent subclass: ClubAdminComponent [
 	createNewsItem [
 		| news |
 		news := self call: ClubNewsitem new asComponent addValidatedForm.
-	]
-
-	children [ ^ Array with: eventEditor with: menuComponent ]
-
-	renderContentOn: html [
-		html div
-		    class: 'subNav';
-		    with: menuComponent.
-		html div
-		    class: 'mainContent';
-		    with: [ html heading: 'ADMIN!' ].
 	]
 ]
 

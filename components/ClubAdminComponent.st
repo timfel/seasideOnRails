@@ -5,9 +5,9 @@ ClubTabbedView subclass: ClubAdminComponent [
 		super initialize.
 	        self
 		    setSideTabbed;
-		    addComponent: (ClubUserComponent new)
-				   "user: self session user;
-				   yourself)"
+		    addComponent: (ClubUserComponent new
+				   user: self session user;
+				   yourself)
 		    with: 'Your Userpage';
 		    addCallback: [self createNewEvent] with: 'Create New Event';
 		    addCallback: [self createNewsItem] with: 'Create News'.
@@ -16,13 +16,14 @@ ClubTabbedView subclass: ClubAdminComponent [
 
 	createNewEvent [
 		| event |
-		event := self call: ClubEvent new asComponent addValidatedForm.
+		event := currentComponent call: ClubEvent new asComponent addValidatedForm.
 		event ifNotNil: [self session database addEvent: event].
 	]
 
 	createNewsItem [
 		| news |
-		news := self call: ClubNewsitem new asComponent addValidatedForm.
+		news := currentComponent call: ClubNewsitem new asComponent addValidatedForm.
+		news ifNotNil: [self session database addNews: news].
 	]
 ]
 

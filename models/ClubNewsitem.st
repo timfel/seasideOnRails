@@ -7,7 +7,6 @@ Object subclass: ClubNewsitem [
 		    selectorAccessor: #date;
 		    label: 'Datum';
 		    priority: 1;
-		    beReadonly;
 		    default: Date today;
 		    yourself
 	]

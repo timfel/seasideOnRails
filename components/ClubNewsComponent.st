@@ -1,22 +1,15 @@
 
 Seaside.WAComponent subclass: ClubNewsComponent [
-	| menuComponent |
+	| limit sortBlock |
 	
 	initialize [ 
-		super initialize.
-	        menuComponent := ClubMenuComponent new.
-
-		self initializeMenuComponent.
+	    super initialize.
+	    sortBlock := [:x :y | true ].
+	    limit := 10.
 	]
 
-	initializeMenuComponent [
-		menuComponent separator: #break.
-		menuComponent addEntry: 'Link1' with: [].
-		menuComponent addEntry: 'Link2' with: [].
-		menuComponent addEntry: 'Link3' with: [].
-	]
-
-	children [ ^ Array with: menuComponent ]
+	limit: aNumber [ limit := aNumber ]
+	sortBlock: aBlock [ sortBlock := aBlock ]
 
 	renderNewsItem: aNewsItem on: html [
 		html div
@@ -29,25 +22,22 @@ Seaside.WAComponent subclass: ClubNewsComponent [
 		    class: 'newsContent';
 		    with: [html text: aNewsItem content].
 
-		self session isLoggedIn
+		"self session isLoggedIn
 		    ifTrue: [html div
 		        class: 'newsEdit';
 			with: [html anchor
 			    callback: [self editNewsItem: aNewsItem]
-			    with: [html text: 'Edit']]]
+			    with: [html text: 'Edit']]]"
 	]
 
 	renderContentOn: html [
 		html div
-		    class: 'subNav';
-		    with: menuComponent.
-		html div
-		    class: 'mainContent';
+		    class: 'news';
 		    with: [
-		        html heading: 'NEWS!'.
-		        self session database events do: [:each |
-		            html text: each title]
-		        separatedBy: [html break]]
+			html text: 'Recent News'.
+			(self session database news) do: [:news | 
+		             self renderNewsItem: news on: html]
+		    ]
 	]
 ]
 

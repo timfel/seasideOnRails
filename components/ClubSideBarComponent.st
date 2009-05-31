@@ -1,20 +1,25 @@
 
 Seaside.WAComponent subclass: ClubSideBarComponent [
-	| calendarComponent |
+	| calendarComponent newsComponent |
 
-	ClubSideBarComponent class >> canBeRoot [ ^ true ]
-	
 	initialize [ 
 		super initialize.
-	        calendarComponent := ClubCalendarComponent new ]
+	        calendarComponent := ClubCalendarComponent new.
+		newsComponent := ClubNewsComponent new.
+		newsComponent 
+		    limit: 5;
+		    sortBlock: [:news | true ]
+	]
 
-	children [ ^ Array with: calendarComponent ]
+	children [ ^ Array with: calendarComponent with: newsComponent ]
 
 	renderContentOn: html [
 		html div
 		    class: 'calendar';
 		    with: calendarComponent.
-		html text: 'SIDEBAR!'
+		html div
+		    class: 'newsFeed';
+		    with: newsComponent.
 	]
 ]
 

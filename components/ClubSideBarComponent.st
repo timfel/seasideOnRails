@@ -5,10 +5,7 @@ Seaside.WAComponent subclass: ClubSideBarComponent [
 	initialize [ 
 		super initialize.
 	        calendarComponent := ClubCalendarComponent new.
-		newsComponent := ClubNewsComponent new.
-		newsComponent 
-		    limit: 5;
-		    sortBlock: [:news | true ]
+		newsComponent := (ClubListView new: [self session database news]).
 	]
 
 	children [ ^ Array with: calendarComponent with: newsComponent ]

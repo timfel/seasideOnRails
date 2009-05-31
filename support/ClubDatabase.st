@@ -1,30 +1,18 @@
 Object subclass: ClubDatabase [
 
 	Events := OrderedCollection new.
+	Users := OrderedCollection new.
+	News := OrderedCollection new.
 	
-	initialize [
-		super initialize.
-	]
+	initialize [ super initialize ]
 
-	events [
-		^ Events
-	]
+	events [ ^ Events ]
+	users [ ^ Users ]
+	news [ ^ News ]
 
-	news [
-		| news |
-	       	news := OrderedCollection new.	
-		Events do: [:event | 
-		    news addAll: event newsItems].
-		^ news
-	]
-
-	addEvent: aClubEvent [
-		Events add: aClubEvent
-	]
-
-	reset [
-		Events := OrderedCollection new.
-	]
+	addEvent: aClubEvent [ Events add: aClubEvent ]
+	addUser: aClubUser [ Users add: aClubUser ]
+	addNews: aClubNewsitem [ News add: aClubNewsitem ]
 ]
 
 ObjectMemory snapshot: 'seaside.im'

@@ -18,7 +18,6 @@ Seaside.WAFileLibrary subclass: ClubFileLibrary [
 }
 
 .mainNav {
-   margin-left: 160px;
    height: 24px;
    border-style: double;
    border-width: 4px;

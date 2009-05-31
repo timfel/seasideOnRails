@@ -1,7 +1,6 @@
 
 Seaside.WAComponent subclass: ClubRootComponent [
-	| sideBarComponent menuComponent currentComponent
-	  newsComponent loginComponent |
+	| sideBarComponent tabView |
 
 	ClubRootComponent class >> canBeRoot [ ^ true ]
 	ClubRootComponent class >> initialize [
@@ -14,25 +13,14 @@ Seaside.WAComponent subclass: ClubRootComponent [
 	initialize [
 		super initialize.
 	        sideBarComponent := ClubSideBarComponent new.
-		currentComponent := newsComponent := ClubNewsComponent new.	
-		loginComponent := ClubAdminComponent new.	
-		menuComponent := ClubMenuComponent new.
-
-		self initializeMenuComponent.
-	]
-
-	initializeMenuComponent [
-		menuComponent addEntry: 'News' with: [currentComponent := newsComponent].
-		menuComponent addEntry: 'Link2' with: [].
-		menuComponent addEntry: 'Intern' with: [currentComponent := loginComponent].
+		tabView := ClubTabbedView new
+		    addComponent: ClubNewsComponent new with: 'Recent News';
+		    addComponent: ClubAdminComponent new with: 'Intern';
+		    yourself.
 	]
 
 	children [
-		^ Array 
-		    with: sideBarComponent
-		    with: newsComponent
-		    with: menuComponent
-		    with: loginComponent
+		^ Array with: sideBarComponent with: tabView
 	]
 
 	renderLogonInformationOn: html [
@@ -53,12 +41,9 @@ Seaside.WAComponent subclass: ClubRootComponent [
 		        html div
 		            class: 'mainHead';
 		            with: [html text: 'BANNER'].
-			html div
-			    class: 'mainNav';
-			    with: menuComponent.
 		        html div
 		            class: 'main';
-		            with: currentComponent.
+		            with: tabView.
 		        html div
 			    class: 'sideBar';
 		            with: sideBarComponent.]

@@ -9,21 +9,20 @@ ClubTabbedView subclass: ClubAdminComponent [
 				   user: self session user;
 				   yourself)
 		    with: 'Your Userpage';
-		    addCallback: [self createNewEvent] with: 'Create New Event';
-		    addCallback: [self createNewsItem] with: 'Create News'.
+		    addCallback: [self create: ClubEvent andAddWith: #addEvent:] with: 'Create New Event';
+		    addCallback: [self create: ClubNewsitem andAddWith: #addNews:] with: 'Create News'.
 		components first value value. "Set Userpage View"
 	]
 
-	createNewEvent [
-		| event |
-		event := currentComponent call: ClubEvent new asComponent addValidatedForm.
-		event ifNotNil: [self session database addEvent: event].
-	]
+	children [ ^ Array with: myChildren first with: currentComponent ]
 
-	createNewsItem [
-		| news |
-		news := currentComponent call: ClubNewsitem new asComponent addValidatedForm.
-		news ifNotNil: [self session database addNews: news].
+	create: aModel andAddWith: aSymbol [
+		| model |
+		currentComponent := aModel new asComponent addValidatedForm.
+		currentComponent onAnswer: [:answer | 
+			model := answer.
+			model ifNotNil: [self session database perform: aSymbol with: model].
+			currentComponent := components first value value]
 	]
 ]
 

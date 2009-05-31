@@ -22,8 +22,8 @@ Seaside.WAComponent subclass: ClubUserComponent [
 		with: [html image: user photo].
 	    html div
 	        class: 'userDetails';
-		with: [user details do: [:each |
-			html text: (each key,': ',each value)]]
+		with: [user details keysAndValuesDo: [:key :value|
+			html text: (key,': ',value)]].
 	    html div 
 	        class: 'userDescription';
 		with: [html html: user description].

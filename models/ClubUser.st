@@ -18,7 +18,8 @@ Object subclass: ClubUser [
 	username: aString [ username := aString ]
 	password [ ^ password ]
 	password: aString [ password := aString ]
-	details [ ^ details ]
+	details [ details ifNil: [^ details := Dictionary new]. 
+		       ^ details]
 	joinYear [ ^ joinYear ]
 	joinYear: aYear [ joinYear := aYear ]
 	photo [ ^ photo ]
@@ -26,12 +27,9 @@ Object subclass: ClubUser [
 	description [ ^ description ]
 	description: aString [ description := aString ]
 
-	addDetail: aKey with: aString [ details add: (aKey -> aString) ]
+	addDetail: aKey with: aString [ self details at: aKey put: aString ]
 		    
-	initialize [ 
-		super initialize.
-		details := Dictionary new.
-	]
+	initialize [ super initialize ]
 ]
 
 ObjectMemory snapshot: 'seaside.im'
